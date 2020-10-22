@@ -1,0 +1,14 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev nodemon ./app.js",
+    "prd": "cross-env NODE_ENV=production nodemon ./app.js"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
+  }
+}
