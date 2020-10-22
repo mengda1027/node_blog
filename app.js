@@ -1,4 +1,4 @@
-const serverIns = require("./src/main")
+const { serverIns } = require("./src/main")
 const { PORT } = require("./conf/config")
 
 var http = require("http")
