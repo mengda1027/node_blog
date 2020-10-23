@@ -1,21 +1,20 @@
+const { blogCtl } = require("../controller/blog")
+const { SuccessModel, ErrorModel } = require("../model/reqRes")
+
 exports.blogRouter = (req, res) => {
-  const method = req.method
-  const url = req.url
-  const path = url.split("?")[0]
+  const id = req.query.id
 
   /**
    * 获取列表
    */
-  if (method === "GET" && path === "/api/blog/list") {
-    return {
-      msg: "blog router - list",
-    }
+  if (req.method === "GET" && req.path === "/api/blog/list") {
+    return new SuccessModel(blogCtl.getList(req.query.author || "", req.query.keyword || ""))
   }
 
   /**
    * 获取博客详情
    */
-  if (method === "GET" && path === "/api/blog/detail") {
+  if (req.method === "GET" && req.path === "/api/blog/detail") {
     return {
       detial: "detail",
     }
@@ -24,9 +23,21 @@ exports.blogRouter = (req, res) => {
   /**
    * 新建一篇博客
    */
-  if (method === "POST" && path === "/api/blog/new") {
+  if (req.method === "POST" && req.path === "/api/blog/new") {
     return {
-      new: "new",
+      new: req.body,
+    }
+  }
+
+  /**
+   * 更新内容
+   */
+  if (req.method === "POST" && req.path === "/api/blog/update") {
+    const re = blogCtl.updateBlog(id, req.body)
+    if (re) {
+      return new SuccessModel(re)
+    } else {
+      return new ErrorModel("update fail ... ")
     }
   }
 }
