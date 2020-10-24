@@ -1,14 +1,15 @@
 const { blogCtl } = require("../controller/blog")
 const { SuccessModel, ErrorModel } = require("../model/reqRes")
 
-exports.blogRouter = (req, res) => {
+exports.blogRouter = async (req, res) => {
   const id = req.query.id
 
   /**
    * 获取列表
    */
   if (req.method === "GET" && req.path === "/api/blog/list") {
-    return new SuccessModel(blogCtl.getList(req.query.author || "", req.query.keyword || ""))
+    const listData = await blogCtl.getList(req.query.author || "", req.query.keyword || "")
+    return new SuccessModel(listData)
   }
 
   /**

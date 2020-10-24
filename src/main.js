@@ -13,7 +13,7 @@ exports.serverIns = async (req, res) => {
   req.body = postData
 
   // 路由处理
-  const blogResult = blogRouter(req, res)
+  const blogResult = await blogRouter(req, res)
   if (blogResult) {
     res.end(JSON.stringify(blogResult))
     return
